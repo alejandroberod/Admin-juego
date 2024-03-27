@@ -1,4 +1,4 @@
-import { consultarApi, edit } from "./api.js";
+import { consultarApi, obtenerUser, edit } from "./api.js";
 //Variables
 const tbody = document.querySelector('.table tbody');
 const modalBody = document.querySelector('modal-body');
@@ -35,24 +35,52 @@ async function leerApi() {
     document.querySelectorAll('.view').forEach(view => {
         view.addEventListener('click', visualizarUser)
     })
+    document.querySelectorAll('.edit').forEach(view => {
+        view.addEventListener('click', visualizarUser)
+    })
 
 }
 
 
-function visualizarUser(e) {
-    const info = e.target.parentElement.parentElement.parentElement;
+async function visualizarUser(e) {
+    const id = +e.target.id;
+    const user = await obtenerUser(id);
+    const {img, nickname, nombre, valor} = user;
+
+    const inputImg = form.querySelector('.img');
+    const inputNickname = form.querySelector('.nickname');
+    const inputNombre = form.querySelector('.nombre');
+    const inputValor = form.querySelector('.valor');
+    const btn = document.querySelector('.modal-content .btn-primary')
+
+    //Se rellena el formulario
+    inputImg.value = img;
+    inputNickname.value = nickname;
+    inputNombre.value = nombre;
+    inputValor.value = valor;
+
+    //Se bloquea los inputs en caso de ser necesario
+    if(e.target.classList.contains('view')) {
+        btn.style.display = 'none'; //Se elimina el botón de guardar
+        inputImg.disabled = true;
+        inputNickname.disabled = true;
+        inputNombre.disabled = true;
+        inputValor.disabled = true;
+        return;
+    } 
     
-    form.querySelector('.img').value = info.querySelector('.img').textContent;
-    form.querySelector('.nickname').value = info.querySelector('.nickname').textContent;
-    form.querySelector('.nombre').value = info.querySelector('.nombre').textContent;
-    form.querySelector('.valor').value = info.querySelector('.valor').textContent;
+    //!OPTIMIZAR¡
+    btn.style.display = 'inline-block';
+    inputImg.disabled = false;
+    inputNickname.disabled = false;
+    inputNombre.disabled = false;
+    inputValor.disabled = false;
+
+    validarUser(user);
 
 }
 
-function editUser(user) {
-    console.log('edit')
+function validarUser(user) {
+    
 }
 
-function deleteUser(user) {
-    console.log('delete')
-}

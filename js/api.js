@@ -1,14 +1,14 @@
-URL = 'https://api-9bd93-default-rtdb.firebaseio.com/api/users.json';
+URL = 'https://api-9bd93-default-rtdb.firebaseio.com/api/users';
 
 const consultarApi = async () => {
-    const result = await fetch(URL);
+    const result = await fetch(`${URL}.json`);
     const response = await result.json();
     return response
 }
 
 const edit = async (usuario) => {
     try {
-        fetch(url, {
+        fetch(`${URL}.json`, {
             method: 'POST',
             body: JSON.stringify(usuario),
             headers: {
@@ -21,4 +21,14 @@ const edit = async (usuario) => {
     }
 }
 
-export {edit, consultarApi};
+const obtenerUser = async (id) => {
+    try {
+        const result = await fetch(`${URL}/${id}.json`)     ;
+        const response = await result.json();
+        return response;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export {edit, consultarApi, obtenerUser};
