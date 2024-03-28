@@ -31,9 +31,9 @@ async function leerApi() {
             <td data-label="Valor" class="valor">${valor}</td>
             <td data-label="Acciones" class="acciones">
                 <div class="btn-group" role="group" aria-label="Basic mixed styles example"> 
-                    <a href="#" class="view" data-bs-toggle="modal" data-bs-target="#exampleModal" id="${id}"">Ver</a>
-                    <a href="#" class="editar" data-bs-toggle="modal" data-bs-target="#exampleModal" id="${id}"">Editar</a>
-                    <a href="#" class="eliminar">Eliminar</a>
+                    <a href="#" class="view" data-bs-toggle="modal" data-bs-target="#exampleModal" id="${id}">Ver</a>
+                    <a href="#" class="editar" data-bs-toggle="modal" data-bs-target="#exampleModal" id="${id}">Editar</a>
+                    <a href="#" class="eliminar" id="${id}">Eliminar</a>
                 </div
             ></td>
         `
